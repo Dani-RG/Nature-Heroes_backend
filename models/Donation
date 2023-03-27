@@ -1,0 +1,23 @@
+const mongoose = require("mongoose");
+const { Schema, model } = mongoose;
+
+const donationSchema = new Schema({
+  animal: {
+    type: Schema.Types.ObjectId,
+    ref: 'Animal'
+  },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  amount: {
+    type: Number,
+    required: [true, 'Please specify your donation.'],
+    default: 1
+  }
+},
+  {
+    timestamps: true
+  });
+
+module.exports = model("Donation", donationSchema);
