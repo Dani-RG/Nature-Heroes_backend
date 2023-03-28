@@ -22,10 +22,6 @@ const foundationSchema = new Schema({
     type: String,
     required: [true, 'Logo is required.']
   },
-  animals: {
-    type: [Schema.Types.ObjectId],
-    ref: 'Animal'
-  },
 },
   {
     timestamps: true
