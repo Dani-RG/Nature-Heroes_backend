@@ -2,13 +2,13 @@ const mongoose = require("mongoose");
 const { Schema, model } = mongoose;
 
 const donationSchema = new Schema({
-  animal: {
-    type: Schema.Types.ObjectId,
-    ref: 'Animal'
-  },
   user: {
     type: Schema.Types.ObjectId,
     ref: 'User'
+  },
+  project: {
+    type: Schema.Types.ObjectId,
+    ref: 'Project'
   },
   amount: {
     type: Number,

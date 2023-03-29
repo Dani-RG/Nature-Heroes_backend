@@ -1,0 +1,18 @@
+const mongoose = require("mongoose");
+const { Schema, model } = mongoose;
+
+const projectSchema = new Schema({
+  foundation: {
+    type: Schema.Types.ObjectId,
+    ref: 'Foundation'
+  },
+  animal: {
+    type: Schema.Types.ObjectId,
+    ref: 'Animal'
+  },
+},
+  {
+    timestamps: true
+  });
+
+module.exports = model("Project", projectSchema);
