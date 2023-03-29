@@ -40,7 +40,7 @@ router.post('/', async (req, res, next) => {
 
 // @desc    Edit one project
 // @route   PUT /projects/:projectId
-// @access  Public
+// @access  Private
 router.put('/:projectId', async (req, res, next) => {
   const { projectId } = req.params;
   try {
@@ -55,7 +55,7 @@ router.put('/:projectId', async (req, res, next) => {
 
 // @desc    Delete one project
 // @route   DELETE /projects/:projectId
-// @access  Public
+// @access  Private
 router.delete('/:projectId', async (req, res, next) => {
   const { projectId } = req.params;
   try {
