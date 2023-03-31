@@ -17,8 +17,12 @@ const userSchema = new Schema({
   },
   role: {
     type: String,
-    enum: ['user', 'admin', 'hero'],
+    enum: ['user', 'admin'],
     default: 'user'
+  },
+  image: {
+    type: String,
+    default: 'https://t4.ftcdn.net/jpg/05/75/02/23/240_F_575022368_chS0812Iw8d8xbb4cTQayizIscfm0d2z.jpg'
   }
 },
   {

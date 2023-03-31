@@ -4,16 +4,18 @@ const { Schema, model } = mongoose;
 const donationSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
-    ref: 'User'
+    ref: 'User',
+    required: true
   },
   project: {
     type: Schema.Types.ObjectId,
-    ref: 'Project'
+    ref: 'Project',
+    required: true
   },
   amount: {
     type: Number,
-    required: [true, 'Please specify your donation.'],
-    default: 1
+    default: 1,
+    required: [true, 'Please specify your donation.']
   }
 },
   {

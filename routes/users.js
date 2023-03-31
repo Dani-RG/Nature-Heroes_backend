@@ -1,14 +1,15 @@
 const router = require('express').Router();
 const User = require('../models/User');
+const { isAuthenticated } = require('../middlewares/jwt');
 
 // @desc    Get one user
 // @route   GET /users/:userId
 // @access  Private
-router.get('/:userId', async (req, res, next) => {
-  const { userId } = req.params;
+router.get('/', isAuthenticated, async (req, res, next) => {
+  const userId = req.payload._id;
   try {
-    const project = await User.findById(userId);
-    res.status(200).json(project);
+    const user = await User.findById(userId);
+    res.status(200).json(user);
   } catch (error) {
     next(error)
   }
@@ -17,12 +18,15 @@ router.get('/:userId', async (req, res, next) => {
 // @desc    Edit one user
 // @route   PUT /users/:userId
 // @access  Private
-router.put('/:userId', async (req, res, next) => {
-  const { userId } = req.params;
+router.put('/', isAuthenticated, async (req, res, next) => {
+  const userId = req.payload._id;
   try {
+    // RESTRINGUIR QUE EL USUARIO NO PUEDA CAMBIARSE EL ROL A ADMIN
     const response = await User.findByIdAndUpdate(userId, req.body, { new: true });
-    console.log(response)
-    //res.redirect(`/users/${userId}`) ==> only to see on Postman if we edited right
+    if (email === "" || username === "") {
+      res.status(400).json({ message: 'All fields are necessary' });
+      return;
+    }
     res.status(204).json({ message: 'OK' });
   } catch (error) {
     next(error)
@@ -32,11 +36,11 @@ router.put('/:userId', async (req, res, next) => {
 // @desc    Delete one user
 // @route   DELETE /users/:userId
 // @access  Private
-router.delete('/:userId', async (req, res, next) => {
-  const { userId } = req.params;
+router.delete('/', isAuthenticated, async (req, res, next) => {
+  const userId = req.payload._id;
   try {
     const deletedUser = await User.findByIdAndDelete(userId);
-    res.status(200).json(deletedUser);
+    res.status(200).json({ message: 'User deleted' });
   } catch (error) {
     next(error)
   }

@@ -6,21 +6,21 @@ const foundationSchema = new Schema({
     type: String,
     unique: true,
     trim: true,
-    required: [true, 'Name is required.']
+    required: true
   },
   acronym: {
     type: String,
     unique: true,
     trim: true,
-    required: [true, 'Acronym is required.']
+    required: true
   },
   description: {
     type: String,
-    required: [true, 'Description is required.']
+    required: true
   },
   logo: {
     type: String,
-    required: [true, 'Logo is required.']
+    required: true
   },
 },
   {

@@ -4,11 +4,13 @@ const { Schema, model } = mongoose;
 const projectSchema = new Schema({
   foundation: {
     type: Schema.Types.ObjectId,
-    ref: 'Foundation'
+    ref: 'Foundation',
+    required: [true, 'Please select a foundation.']
   },
   animal: {
     type: Schema.Types.ObjectId,
-    ref: 'Animal'
+    ref: 'Animal',
+    required: [true, 'Please select an animal.']
   },
 },
   {
