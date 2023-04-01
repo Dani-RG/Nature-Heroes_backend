@@ -12,6 +12,10 @@ const projectSchema = new Schema({
     ref: 'Animal',
     required: [true, 'Please select an animal.']
   },
+  collected_donations: {
+    type: Number,
+    default: 0
+  }
 },
   {
     timestamps: true

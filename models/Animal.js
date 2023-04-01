@@ -31,7 +31,7 @@ const animalSchema = new Schema({
     type: Number,
     required: true
   },
-  status: {
+  species_status: {
     type: String,
     required: true
   },
