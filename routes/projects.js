@@ -31,12 +31,16 @@ router.get('/:projectId', async (req, res, next) => {
 // @route   POST /projects
 // @access  Private - Admin
 router.post('/', isAuthenticated, isAdmin, async (req, res, next) => {
+  const { foundation, animal } = req.body;
+  if (
+    foundation === "" || !foundation ||
+    animal === "" || !animal
+    ) {
+    res.status(400).json({ message: 'All fields are necessary' });
+    return;
+  }
   try {
     const newProject = await Project.create(req.body);
-    if (foundation === "" || animal === "") {
-      res.status(400).json({ message: 'All fields are necessary' });
-      return;
-    }
     res.status(201).json(newProject);
   } catch (error) {
     next(error)
@@ -48,14 +52,15 @@ router.post('/', isAuthenticated, isAdmin, async (req, res, next) => {
 // @access  Private - Admin
 router.put('/:projectId', isAuthenticated, isAdmin, async (req, res, next) => {
   const { projectId } = req.params;
+  const { foundation, animal } = req.body;
+  if (foundation === "" || animal === "") {
+    res.status(400).json({ message: 'All fields are necessary' });
+    return;
+  }
   try {
     const response = await Project.findByIdAndUpdate(projectId, req.body, { new: true });
-    if (foundation === "" || animal === "") {
-      res.status(400).json({ message: 'All fields are necessary' });
-      return;
-    }
     res.status(204).json({ message: 'OK' });
-  } catch (error) {
+    } catch (error) {
     next(error)
   }
 });

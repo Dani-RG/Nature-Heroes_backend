@@ -20,14 +20,16 @@ router.get('/', isAuthenticated, async (req, res, next) => {
 // @access  Private
 router.put('/', isAuthenticated, async (req, res, next) => {
   const userId = req.payload._id;
+  const { email, username, image } = req.body;
+  if (
+    email === "" || !email ||
+    username === ""|| !username
+   ) {
+    res.status(400).json({ message: 'All fields are necessary' });
+    return;
+  }
   try {
-    // RESTRINGUIR QUE EL USUARIO NO PUEDA CAMBIARSE EL ROL A ADMIN
-    // DESTRUCTURAR SOLO LOS CAMPOS Q NECESITO Y PASARSELOS AL UPDATE
-    const response = await User.findByIdAndUpdate(userId, req.body, { new: true });
-    if (email === "" || username === "") {
-      res.status(400).json({ message: 'All fields are necessary' });
-      return;
-    }
+    const response = await User.findByIdAndUpdate(userId, { email: email, username: username, image: image }, { new: true });
     res.status(204).json({ message: 'OK' });
   } catch (error) {
     next(error)

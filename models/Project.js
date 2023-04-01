@@ -14,7 +14,8 @@ const projectSchema = new Schema({
   },
   collected_donations: {
     type: Number,
-    default: 0
+    default: 0,
+    required: [true, 'Please insert a number or start it with 0']
   }
 },
   {

@@ -31,37 +31,33 @@ router.get('/:animalId', async (req, res, next) => {
 // @route   POST /animals
 // @access  Private - Admin
 router.post('/', isAuthenticated, isAdmin, async (req, res, next) => {
-      const {
-      common_name,
-      scientific_name,
-      class_name,
-      family_name,
-      habitat_type,
-      population,
-      species_status,
-      image,
-      database_link
-    } = req.body;
-
-    if (
-      common_name === "" ||
-      scientific_name === "" ||
-      class_name === "" ||
-      family_name === "" ||
-      habitat_type === "" ||
-      population < 0 ||
-      population === undefined ||
-      species_status === "" ||
-      image === "" ||
-      database_link === ""
-      ) {
-        res.status(400).json({ message: 'All fields are necessary' });
-        return;
-      } 
-
+  const {
+    common_name,
+    scientific_name,
+    class_name,
+    family_name,
+    habitat_type,
+    population,
+    species_status,
+    image,
+    database_link
+  } = req.body;
+  if (
+    common_name === "" || !common_name ||
+    scientific_name === "" || !scientific_name ||
+    class_name === "" || !class_name ||
+    family_name === "" || !family_name ||
+    habitat_type === "" || !habitat_type ||
+    population < 0 || population === undefined || !population ||
+    species_status === "" || !species_status ||
+    image === "" || !image ||
+    database_link === "" || !database_link
+    ) {
+      res.status(400).json({ message: 'All fields are necessary' });
+      return;
+    } 
   try {
     const newAnimal = await Animal.create(req.body);
-
         res.status(201).json(newAnimal);
   } catch (error) {
     next(error)
@@ -73,23 +69,33 @@ router.post('/', isAuthenticated, isAdmin, async (req, res, next) => {
 // @access  Private - Admin
 router.put('/:animalId', isAuthenticated, isAdmin, async (req, res, next) => {
   const { animalId } = req.params;
-  try {
-    const response = await Animal.findByIdAndUpdate(animalId, req.body, { new: true });
-    if (
-      common_name === "" ||
-      scientific_name === "" ||
-      class_name === "" ||
-      family_name === "" ||
-      habitat_type === "" ||
-      population < 0 ||
-      population === undefined ||
-      species_status === "" ||
-      image === "" ||
-      database_link === ""
+  const {
+    common_name,
+    scientific_name,
+    class_name,
+    family_name,
+    habitat_type,
+    population,
+    species_status,
+    image,
+    database_link
+  } = req.body;
+  if (
+    common_name === "" || !common_name ||
+    scientific_name === "" || !scientific_name ||
+    class_name === "" || !class_name ||
+    family_name === "" || !family_name ||
+    habitat_type === "" || !habitat_type ||
+    population < 0 || population === undefined || !population ||
+    species_status === "" || !species_status ||
+    image === "" || !image ||
+    database_link === "" || !database_link
     ) {
       res.status(400).json({ message: 'All fields are necessary' });
       return;
-    }
+    } 
+  try {
+    const response = await Animal.findByIdAndUpdate(animalId, req.body, { new: true });
     res.status(204).json({ message: 'OK' });
   } catch (error) {
     next(error)

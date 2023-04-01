@@ -1,7 +1,6 @@
 const router = require('express').Router();
 const Donation = require('../models/Donation');
 const Project = require('../models/Project');
-const Foundation = require('../models/Foundation');
 const { isAuthenticated } = require('../middlewares/jwt');
 
 // @desc    Get all user donations
@@ -44,17 +43,16 @@ router.get('/:donationId', isAuthenticated, async (req, res, next) => {
 router.post('/:projectId', isAuthenticated, async (req, res, next) => {
   const { projectId } = req.params;
   const { amount } = req.body;
-  if (amount <= 0 || amount === undefined) {
+  if (amount <= 0 || amount === undefined || !amount) {
     res.status(400).json({ message: 'Please specify your donation' });
     return;
   }
   try {
     const donation = await (await Donation.create({user: req.payload._id, project: projectId, amount: amount})).populate("user project");
-  
-    const project = await Project.findByIdAndUpdate(projectId, {collected_donations: amount}, {new:true}).populate("foundation animal");
 
-    res.status(201).json({newDonation: donation, updatedProj: project})
-
+    const project = await Project.findByIdAndUpdate(projectId, { $inc: { collected_donations: amount } }, {new:true}).populate("foundation animal");
+    
+    res.status(201).json({newDonation: donation, updatedProject: project});
     } catch (error) {
       next(error)
     }
