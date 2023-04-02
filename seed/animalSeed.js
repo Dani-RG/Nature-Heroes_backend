@@ -12,15 +12,9 @@ mongoose
   .then(() => {
     return Animal.deleteMany({})
   })
-  // delete de foundation
-  // create foundation 
-  .then(() => { // como param foundation
-    // const found = foundCreated
+  .then(() => {
     return Animal.create(animals)
-    // return [found, animals]
   })
-  // recojo animals y found 
-  // project.create 
   .then((createdAnimals) => {
     console.log(`Inserted ${createdAnimals.length} animals in the database`)
   })
