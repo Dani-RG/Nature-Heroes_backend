@@ -7,8 +7,8 @@ const { isAuthenticated } = require('../middlewares/jwt');
 // @route   GET /donations
 // @access  Private
 router.get('/', isAuthenticated, async (req, res, next) => {
+  const userId = req.payload._id;
   try {
-    const userId = req.payload._id;
     const donations = await Donation.find({user: userId});
     if (donations.length === 0) {
       res.status(404).json({ message: 'You have not made donations yet' });
@@ -41,18 +41,19 @@ router.get('/:donationId', isAuthenticated, async (req, res, next) => {
 // @route   POST /donations
 // @access  Private
 router.post('/:projectId', isAuthenticated, async (req, res, next) => {
+  const userId = req.payload._id;
   const { projectId } = req.params;
   const { amount } = req.body;
-  if (amount <= 0 || amount === undefined || !amount) {
+  if (amount <= 0 || !amount) {
     res.status(400).json({ message: 'Please specify your donation' });
     return;
   }
   try {
-    const donation = await (await Donation.create({user: req.payload._id, project: projectId, amount: amount})).populate("user project");
+    const newDonation = await (await Donation.create({user: userId, project: projectId, amount: amount})).populate('user project');
 
-    const project = await Project.findByIdAndUpdate(projectId, { $inc: { collected_donations: amount } }, {new:true}).populate("foundation animal");
+    const project = await Project.findByIdAndUpdate(projectId, { $inc: { collected_donations: amount } }, {new:true}).populate('foundation animal');
     
-    res.status(201).json({newDonation: donation, updatedProject: project});
+    res.status(201).json({newDonation: newDonation, updatedProject: project});
     } catch (error) {
       next(error)
     }

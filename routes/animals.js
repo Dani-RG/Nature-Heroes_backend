@@ -57,8 +57,13 @@ router.post('/', isAuthenticated, isAdmin, async (req, res, next) => {
       return;
     } 
   try {
+    const existingAnimal = await Animal.findOne({ scientific_name });
+    if (existingAnimal) {
+    res.status(400).send({ message: 'This animal record already exist' });
+    } else {
     const newAnimal = await Animal.create(req.body);
         res.status(201).json(newAnimal);
+    }
   } catch (error) {
     next(error)
   }
@@ -95,8 +100,13 @@ router.put('/:animalId', isAuthenticated, isAdmin, async (req, res, next) => {
       return;
     } 
   try {
+    const existingAnimal = await Animal.findOne({ scientific_name });
+    if (existingAnimal) {
+    res.status(400).send({ message: 'This animal record already exist' });
+    } else {
     const response = await Animal.findByIdAndUpdate(animalId, req.body, { new: true });
     res.status(204).json({ message: 'OK' });
+    }
   } catch (error) {
     next(error)
   }

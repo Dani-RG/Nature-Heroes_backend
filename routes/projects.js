@@ -40,8 +40,13 @@ router.post('/', isAuthenticated, isAdmin, async (req, res, next) => {
     return;
   }
   try {
-    const newProject = await Project.create(req.body);
-    res.status(201).json(newProject);
+    const existingProject = await Project.findOne({ foundation, animal });
+    if (existingProject) {
+    res.status(400).send({ message: 'This project already exist' });
+    } else {
+      const newProject = await (await Project.create(req.body)).populate('foundation animal');
+      res.status(201).json(newProject);
+    }
   } catch (error) {
     next(error)
   }
@@ -58,9 +63,14 @@ router.put('/:projectId', isAuthenticated, isAdmin, async (req, res, next) => {
     return;
   }
   try {
+    const existingProject = await Project.findOne({ foundation, animal });
+    if (existingProject) {
+    res.status(400).send({ message: 'This project already exist' });
+    } else {
     const response = await Project.findByIdAndUpdate(projectId, req.body, { new: true });
     res.status(204).json({ message: 'OK' });
-    } catch (error) {
+    }
+  } catch (error) {
     next(error)
   }
 });

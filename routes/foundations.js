@@ -42,8 +42,13 @@ router.post('/', isAuthenticated, isAdmin, async (req, res, next) => {
     return;
   }
   try {
+    const existingFoundation = await Foundation.findOne({ name, acronym });
+    if (existingFoundation) {
+    res.status(400).send({ message: 'This foundation is already registered' });
+    } else {
     const newFoundation = await Foundation.create(req.body);
     res.status(201).json(newFoundation);
+    }
   } catch (error) {
     next(error)
   }
@@ -65,8 +70,13 @@ router.put('/:foundationId', isAuthenticated, isAdmin, async (req, res, next) =>
     return;
   }
   try {
+    const existingFoundation = await Foundation.findOne({ name, acronym });
+    if (existingFoundation) {
+    res.status(400).send({ message: 'This foundation is already registered' });
+    } else {
     const response = await Foundation.findByIdAndUpdate(foundationId, req.body, { new: true });
     res.status(204).json({ message: 'OK' });
+    }
   } catch (error) {
     next(error)
   }
