@@ -49,9 +49,10 @@ router.post('/:projectId', isAuthenticated, async (req, res, next) => {
     return;
   }
   try {
-    const newDonation = await (await Donation.create({user: userId, project: projectId, amount: amount})).populate('user project');
+    const newDonation = await Donation.create({user: userId, project: projectId, amount: amount});
+    console.log(newDonation)
 
-    const project = await Project.findByIdAndUpdate(projectId, { $inc: { collected_donations: amount } }, {new:true}).populate('foundation animal');
+    const project = await Project.findByIdAndUpdate(projectId, { $inc: { collected_donations: amount } }, {new:true});
     
     res.status(201).json({newDonation: newDonation, updatedProject: project});
     } catch (error) {

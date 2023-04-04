@@ -31,7 +31,9 @@ router.get('/:projectId', async (req, res, next) => {
 // @route   POST /projects
 // @access  Private - Admin
 router.post('/', isAuthenticated, isAdmin, async (req, res, next) => {
+  console.log('Backend in')
   const { foundation, animal } = req.body;
+  console.log('backend body', req.body)
   if (
     foundation === "" || !foundation ||
     animal === "" || !animal
@@ -44,7 +46,7 @@ router.post('/', isAuthenticated, isAdmin, async (req, res, next) => {
     if (existingProject) {
     res.status(400).send({ message: 'This project already exist' });
     } else {
-      const newProject = await (await Project.create(req.body)).populate('foundation animal');
+      const newProject = await Project.create(req.body);
       res.status(201).json(newProject);
     }
   } catch (error) {
