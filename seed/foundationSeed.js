@@ -6,21 +6,26 @@ const foundations = require('../db/foundationsData');
 
 mongoose
   .connect(process.env.MONGO_URL)
-  .then(response  => {
+  .then(async (response)  => {
     console.log(`Connected to Mongo! Database name: "${response.connections[0].name}"`);
-  })
-  .then(() => {
-    return Foundation.deleteMany({})
-  })
-  .then(() => {
-    return Foundation.create(foundations)
-  })
-  .then((createdFoundations) => {
-    console.log(`Inserted ${createdFoundations.length} foundations in the database`)
+    
+    for (const foundation of foundations) {
+      const existingFoundation = await Foundation.findOne({ acronym: foundation.acronym });
+
+      if (existingFoundation) {
+        await Foundation.findOneAndUpdate({ _id: existingFoundation._id }, foundation);
+      } else {
+        const newFoundation = new Foundation(foundation);
+        await newFoundation.save();
+      }
+    }
+
+    console.log(`Inserted ${foundations.length} foundations in the database`);
   })
   .catch((err) => {
     console.error("Error connecting to mongo: ", err);
   })
   .finally(() => {
-    mongoose.connection.close()
-  })
+    mongoose.connection.close();
+  });
+  

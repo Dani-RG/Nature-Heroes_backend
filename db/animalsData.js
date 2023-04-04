@@ -505,7 +505,7 @@ module.exports = [
     habitat_type: 'Marine Neritic, Marine Deep Benthic',
     population: 650,
     species_status: 'Critically Endangered',
-    image: 'https://embargerendangeredearth.files.wordpress.com/2017/07/img_2796_apa_3070_600.jpg',
+    image: 'https://wir.iucnredlist.org/cHjVFBb1-dhlnGV-Hw.jpg',
     database_link: 'https://www.iucnredlist.org/species/169473392/124398647'
   },
   {
