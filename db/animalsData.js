@@ -21,7 +21,7 @@ module.exports = [
     family_name: 'Cercopithecidae',
     habitat_type: 'Forest, Savanna, Artificial/Terrestrial',
     population: 40000,
-    species_status: 'Least concern',
+    species_status: 'Least Concern',
     image: 'https://wir.iucnredlist.org/32367258.jpg',
     database_link: 'https://www.iucnredlist.org/species/136265/17958099#population'
   },
@@ -43,7 +43,7 @@ module.exports = [
     family_name: 'Balaenopteridae',
     habitat_type: 'Marine Neritic, Marine Oceanic',
     population: 84000,
-    species_status: 'Least Concern ',
+    species_status: 'Least Concern',
     image: 'https://www.treehugger.com/thmb/QGSp8OQGS9w34KGgQnZ6rwhkOG0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__mnn__images__2010__06__shutterstock_1218839440-d995fcbabd09483c960d49e6ad88144b.jpg',
     database_link: 'https://www.iucnredlist.org/species/13006/50362794'
   },
@@ -347,7 +347,7 @@ module.exports = [
     family_name: 'Geoemydidae',
     habitat_type: 'Forest, Wetlands (inland)',
     population: 0,
-    species_status: 'Critically Endangered',
+    species_status: 'Extinct in the Wild',
     image: 'https://www.joelsartore.com/wp-content/uploads/stock/ANI104/ANI104-00366-1920x1279.jpg',
     database_link: 'https://www.iucnredlist.org/species/123768950/123769768'
   },

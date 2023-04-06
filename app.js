@@ -8,11 +8,10 @@ const cors = require('cors');
 // Routers require
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
-const projectsRouter = require('./routes/projects');
-const donationsRouter = require('./routes/donations');
-const usersRouter = require('./routes/users');
 const animalsRouter = require('./routes/animals');
 const foundationsRouter = require('./routes/foundations.js');
+const projectsRouter = require('./routes/projects');
+const usersRouter = require('./routes/users');
 
 const app = express();
 
@@ -29,11 +28,10 @@ app.use(express.urlencoded({ extended: false }));
 // routes intro
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
-app.use('/projects', projectsRouter);
-app.use('/donations', donationsRouter);
-app.use('/users', usersRouter);
 app.use('/animals', animalsRouter);
 app.use('/foundations', foundationsRouter);
+app.use('/projects', projectsRouter);
+app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
