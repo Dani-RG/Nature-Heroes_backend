@@ -10,7 +10,7 @@ const { isAuthenticated, isAdmin } = require('../middlewares/jwt');
 // @access  Public
 router.get('/', async (req, res, next) => {
   try {
-    const projects = await Project.find();
+    const projects = await Project.find().populate('foundation');
     res.status(200).json(projects);
   } catch (error) {
     next(error)
@@ -134,6 +134,8 @@ router.post('/donations/:projectId', isAuthenticated, async (req, res, next) => 
   const userId = req.payload._id;
   const { projectId } = req.params;
   const { amount } = req.body;
+  console.log('hola estoy aqui');
+
   if (amount <= 0 || !amount) {
     res.status(400).json({ message: 'Please specify your donation' });
     return;
