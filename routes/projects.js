@@ -23,7 +23,7 @@ router.get('/', async (req, res, next) => {
 router.get('/:projectId', async (req, res, next) => {
   const { projectId } = req.params;
   try {
-    const project = await Project.findById(projectId);
+    const project = await Project.findById(projectId).populate('foundation animal');
     res.status(200).json(project);
   } catch (error) {
     next(error)
@@ -43,7 +43,7 @@ router.post('/', isAuthenticated, isAdmin, async (req, res, next) => {
     return;
   }
   try {
-    const existingProject = await Project.findOne({ foundation, animal });
+    const existingProject = await Project.findOne({ foundation, animal }).populate('foundation animal');
     if (existingProject) {
     res.status(400).send({ message: 'This project already exist' });
     } else {
@@ -66,7 +66,7 @@ router.put('/:projectId', isAuthenticated, isAdmin, async (req, res, next) => {
     return;
   }
   try {
-    const existingProject = await Project.findOne({ foundation, animal });
+    const existingProject = await Project.findOne({ foundation, animal }).populate('foundation animal');
     if (existingProject) {
     res.status(400).send({ message: 'This project already exist' });
     } else {
