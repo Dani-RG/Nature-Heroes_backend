@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const Project = require('../models/Project');
 const Donation = require('../models/Donation');
+const User = require('../models/User');
 const { isAuthenticated, isAdmin } = require('../middlewares/jwt');
 
 // PROJECTS
@@ -134,7 +135,6 @@ router.post('/donations/:projectId', isAuthenticated, async (req, res, next) => 
   const userId = req.payload._id;
   const { projectId } = req.params;
   const { amount } = req.body;
-  console.log('hola estoy aqui');
 
   if (amount <= 0 || !amount) {
     res.status(400).json({ message: 'Please specify your donation' });
@@ -145,8 +145,10 @@ router.post('/donations/:projectId', isAuthenticated, async (req, res, next) => 
     console.log(newDonation)
 
     const project = await Project.findByIdAndUpdate(projectId, { $inc: { collected_donations: amount } }, {new:true});
+
+    const user = await User.findByIdAndUpdate(userId, { $inc: { donated_total: amount } }, {new:true});
     
-    res.status(201).json({newDonation: newDonation, updatedProject: project});
+    res.status(201).json({newDonation: newDonation, updatedProject: project, updatedUser: user});
     } catch (error) {
       next(error)
     }
