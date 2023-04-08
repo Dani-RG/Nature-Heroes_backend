@@ -14,7 +14,7 @@ const donationSchema = new Schema({
   },
   amount: {
     type: Number,
-    default: 1,
+    default: 10,
     required: [true, 'Please specify your donation.']
   }
 },
