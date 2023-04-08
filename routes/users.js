@@ -5,7 +5,7 @@ const { isAuthenticated } = require('../middlewares/jwt');
 // @desc    Edit one user
 // @route   PUT /users/:userId
 // @access  Private
-router.put('/', isAuthenticated, async (req, res, next) => {
+router.put('/edit/:userId', isAuthenticated, async (req, res, next) => {
   const userId = req.payload._id;
   const { username, image } = req.body;
   if (
@@ -25,7 +25,7 @@ router.put('/', isAuthenticated, async (req, res, next) => {
 // @desc    Delete one user
 // @route   DELETE /users/:userId
 // @access  Private
-router.delete('/', isAuthenticated, async (req, res, next) => {
+router.delete('/edit/:userId', isAuthenticated, async (req, res, next) => {
   const userId = req.payload._id;
   try {
     const deletedUser = await User.findByIdAndDelete(userId);

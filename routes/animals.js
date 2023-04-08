@@ -72,7 +72,7 @@ router.post('/', isAuthenticated, isAdmin, async (req, res, next) => {
 // @desc    Edit one animal
 // @route   PUT /animals/:animalId
 // @access  Private - Admin
-router.put('/:animalId', isAuthenticated, isAdmin, async (req, res, next) => {
+router.put('/edit/:animalId', isAuthenticated, isAdmin, async (req, res, next) => {
   const { animalId } = req.params;
   const {
     common_name,
@@ -85,6 +85,7 @@ router.put('/:animalId', isAuthenticated, isAdmin, async (req, res, next) => {
     image,
     database_link
   } = req.body;
+
   if (
     common_name === "" || !common_name ||
     scientific_name === "" || !scientific_name ||
@@ -99,14 +100,10 @@ router.put('/:animalId', isAuthenticated, isAdmin, async (req, res, next) => {
       res.status(400).json({ message: 'All fields are necessary' });
       return;
     } 
+
   try {
-    const existingAnimal = await Animal.findOne({ scientific_name });
-    if (existingAnimal) {
-    res.status(400).send({ message: 'This animal record already exist' });
-    } else {
     const response = await Animal.findByIdAndUpdate(animalId, req.body, { new: true });
     res.status(204).json({ message: 'OK' });
-    }
   } catch (error) {
     next(error)
   }
