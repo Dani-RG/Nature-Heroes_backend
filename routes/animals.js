@@ -112,7 +112,7 @@ router.put('/edit/:animalId', isAuthenticated, isAdmin, async (req, res, next) =
 // @desc    Delete one animal
 // @route   DELETE /animals/:animalId
 // @access  Private - Admin
-router.delete('/:animalId', isAuthenticated, isAdmin, async (req, res, next) => {
+router.delete('/edit/:animalId', isAuthenticated, isAdmin, async (req, res, next) => {
   const { animalId } = req.params;
   try {
     const deletedAnimal = await Animal.findByIdAndDelete(animalId);
