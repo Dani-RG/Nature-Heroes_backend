@@ -11,7 +11,7 @@ router.put('/edit/:userId', isAuthenticated, async (req, res, next) => {
   if (
     username === ""|| !username
    ) {
-    res.status(400).json({ message: 'Fill the field' });
+    res.status(400).json({ message: 'Fill username field' });
     return;
   }
   try {
