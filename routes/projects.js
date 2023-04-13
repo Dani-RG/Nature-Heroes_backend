@@ -3,6 +3,7 @@ const Project = require('../models/Project');
 const Donation = require('../models/Donation');
 const User = require('../models/User');
 const { isAuthenticated, isAdmin } = require('../middlewares/jwt');
+const jwt = require("jsonwebtoken");
 
 // PROJECTS
 
@@ -142,16 +143,30 @@ router.post('/donations/:projectId', isAuthenticated, async (req, res, next) => 
   }
   try {
     const newDonation = await Donation.create({user: userId, project: projectId, amount: amount});
-    console.log(newDonation)
 
     const project = await Project.findByIdAndUpdate(projectId, { $inc: { collected_donations: amount } }, {new:true});
 
     const user = await User.findByIdAndUpdate(userId, { $inc: { donated_total: amount } }, {new:true});
-    
-    res.status(201).json({newDonation: newDonation, updatedProject: project, updatedUser: user});
-    } catch (error) {
-      next(error)
+
+    if (user) {
+      const payload = {
+        email: user.email,
+        username: user.username,
+        role: user.role,
+        _id: user._id,
+        image: user.image,
+        donated_total: user.donated_total
+      };
+      const authToken = jwt.sign(
+        payload,
+        process.env.TOKEN_SECRET,
+        { algorithm: 'HS256', expiresIn: "30d" }
+      );
+      res.status(201).json({newDonation: newDonation, updatedProject: project, updatedUser: user, authToken: authToken});
     }
+  } catch (error) {
+    next(error)
+  }
 });
 
 module.exports = router;
