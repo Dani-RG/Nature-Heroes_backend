@@ -154,7 +154,7 @@ module.exports = [
     habitat_type: 'Marine Neritic, Marine Oceanic',
     population: 250,
     species_status: 'Critically Endangered',
-    image: 'https://www.animalsaroundtheglobe.com/wp-content/uploads/2022/10/pexels-silvana-palacios-3635870-e1666945662538.jpg',
+    image: 'https://res.cloudinary.com/jerrick/image/upload/v1535135428/vsajtdehh8hmsrybaofe.jpg',
     database_link: 'https://www.iucnredlist.org/species/41712/178589687'
   },
 
@@ -202,7 +202,7 @@ module.exports = [
     habitat_type: 'Forest, Shrubland, Artificial/Terrestrial',
     population: 7500,
     species_status: 'Near Threatened',
-    image: 'https://wir.iucnredlist.org/dCwfLWDl-dbW9qk-dWQ.jpg',
+    image: 'https://i.pinimg.com/originals/99/88/ba/9988bad5a2559f65ccefb6963fcd2635.jpg',
     database_link: 'https://www.iucnredlist.org/species/22691435/210892456'
   },
   {
