@@ -162,7 +162,7 @@ router.post('/donations/:projectId', isAuthenticated, async (req, res, next) => 
         process.env.TOKEN_SECRET,
         { algorithm: 'HS256', expiresIn: "30d" }
       );
-      res.status(201).json({newDonation: newDonation, updatedProject: project, updatedUser: user, authToken: authToken});
+      res.status(201).json({newDonation: newDonation, updatedProject: project, authToken: authToken});
     }
   } catch (error) {
     next(error)
