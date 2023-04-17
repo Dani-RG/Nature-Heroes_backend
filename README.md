@@ -254,7 +254,7 @@ module.exports = model("Project", projectSchema);
 
 ## Useful links
 
-- [Presentation slides]()
+- [Presentation slides](https://slides.com/daniel_rg/presentacion-daniel-rondon)
 - [Frontend repository](https://github.com/Dani-RG/frontend-template-m3)
 - [Frontend deploy](https://nature-heroes.netlify.app/)
 - [Deployed REST API](https://nature-heroes.fly.dev/)
