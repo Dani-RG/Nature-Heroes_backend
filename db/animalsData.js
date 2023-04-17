@@ -518,5 +518,60 @@ module.exports = [
     species_status: 'Critically Endangered',
     image: 'https://www.georgiaaquarium.org/wp-content/uploads/2020/08/sharks-predators-of-the-deep-1440x454.jpg',
     database_link: 'https://www.iucnredlist.org/species/39386/2920499'
+  },
+  {
+    common_name: 'Rice Whale',
+    scientific_name: 'Balaenoptera ricei',
+    class_name: 'Mammalia',
+    family_name: 'Balaenopteridae',
+    habitat_type: 'Marine Oceanic',
+    population: 26,
+    species_status: 'Critically Endangered',
+    image: 'https://wir.iucnredlist.org/GDB6Sb16-dj28MZ-59n.jpg',
+    database_link: 'https://www.iucnredlist.org/species/215823373/208496244'
+  },
+{
+    common_name: 'Emperor Penguin',
+    scientific_name: 'Aptenodytes forsteri',
+    class_name: 'Aves',
+    family_name: 'Spheniscidae',
+    habitat_type: 'Marine Neritic, Marine Oceanic, Marine Intertidal, Other',
+    population: 595000,
+    species_status: 'Near Threatened',
+    image: 'https://wir.iucnredlist.org/aptenodytes-forsteri.jpg',
+    database_link: 'https://www.iucnredlist.org/species/22697752/157658053'
+  },
+{
+    common_name: 'Snares Penguin',
+    scientific_name: 'Eudyptes robustus',
+    class_name: 'Aves',
+    family_name: 'Spheniscidae',
+    habitat_type: 'Forest, Marine Neritic, Marine Oceanic',
+    population: 63000,
+    species_status: 'Vulnerable',
+    image: 'https://www.doc.govt.nz/thumbs/hero/contentassets/163dd0347c5545808b6c406fd40d2add/snares-crested-penguin-hero.jpg',
+    database_link: 'https://www.iucnredlist.org/species/22697782/132602343'
+  },
+{
+    common_name: 'Fin Whale',
+    scientific_name: 'Balaenoptera physalus',
+    class_name: 'Mammalia',
+    family_name: 'Balaenopteridae',
+    habitat_type: 'Marine Neritic, Marine Oceanic',
+    population: 100000,
+    species_status: 'Vulnerable',
+    image: 'https://wir.iucnredlist.org/1855675223.jpg',
+    database_link: 'https://www.iucnredlist.org/species/2478/50349982'
+  },
+{
+    common_name: 'Beluga Whale',
+    scientific_name: 'Delphinapterus leucas',
+    class_name: 'Mammalia',
+    family_name: 'Monodontidae',
+    habitat_type: 'Marine Neritic, Marine Oceanic',
+    population: 136000,
+    species_status: 'Least Concern ',
+    image: 'https://www.coolantarctica.com/Antarctica%20fact%20file/wildlife/Arctic_animals/Delphinapterus_leucas_Steve-snodgrass-CC2-Att-Gen.jpg',
+    database_link: 'https://www.iucnredlist.org/species/6335/50352346'
   }
 ]

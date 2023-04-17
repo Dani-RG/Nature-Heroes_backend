@@ -22,7 +22,7 @@ const userSchema = new Schema({
   },
   image: {
     type: String,
-    default: 'https://t4.ftcdn.net/jpg/05/75/02/23/240_F_575022368_chS0812Iw8d8xbb4cTQayizIscfm0d2z.jpg'
+    default: 'https://e1.pxfuel.com/desktop-wallpaper/360/419/desktop-wallpaper-geometric-animal-animal.jpg'
   },
   donated_total: {
     type: Number,
