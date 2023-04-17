@@ -229,28 +229,23 @@ module.exports = model("Project", projectSchema);
 | Sign up user     | POST      | /auth/signup  | { username, email, password }   |    Public |                 
 | Log in user      | POST      | /auth/login   | { email, password }             |    Public |                  
 | Get logged in user   | GET     | /auth/me    |   | Private |
-
 | Edit user   | PUT     | users/edit/:userId    |   | Private |
 | Delete user   | DELETE     | users/edit/:userId    |   | Private |
-
 | Get animals   | GET     | /animals    |   | Public |
 | Get animal   | GET     | /animals/:animalId    |   | Public |
 | Post animal   | POST     | /animals/:animalId    |   | Private |
 | Edit animal   | PUT     | /animals/edit/:animalId    |   | Private |
 | Delete user   | DELETE     | /animals/edit/:animalId    |   | Private |
-
 | Get foundations   | GET     | /foundations    |   | Public |
 | Get foundation   | GET     | /foundations/:foundationId    |   | Public |
 | Post foundation   | POST     | /foundations/:foundationId    |   | Private |
 | Edit foundation   | PUT     | /foundations/:foundationId    |   | Private |
 | Delete foundation   | DELETE     | /foundations/:foundationId    |   | Private |
-
 | Get projects   | GET     | /projects    |   | Public |
 | Get project   | GET     | /projects/:projectId    |   | Public |
 | Post project   | POST     | /projects    |   | Private |
 | Edit project   | PUT     | /projects/:projectId    |   | Private |
 | Delete project   | DELETE     | /projects/:projectId    |   | Private |
-
 | Get donations   | GET     | /donations    |   | Public |
 | Get donation   | GET     | /donations/:donationId    |   | Public |
 | Post donation   | POST     | /donations/:projectId    |   | Public |
