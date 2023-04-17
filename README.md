@@ -233,22 +233,22 @@ module.exports = model("Project", projectSchema);
 | Delete user   | DELETE     | users/edit/:userId    |   | Private |
 | Get animals   | GET     | /animals    |   | Public |
 | Get animal   | GET     | /animals/:animalId    |   | Public |
-| Post animal   | POST     | /animals/:animalId    |   | Private |
-| Edit animal   | PUT     | /animals/edit/:animalId    |   | Private |
-| Delete user   | DELETE     | /animals/edit/:animalId    |   | Private |
+| Post animal   | POST     | /animals/:animalId    | { common_name, scientific_name, class_name, family_name, population, species_status, image }  | Private |
+| Edit animal   | PUT     | /animals/edit/:animalId    |  { common_name, scientific_name, class_name, family_name, population, species_status, image } | Private |
+| Delete animal   | DELETE     | /animals/edit/:animalId    |   | Private |
 | Get foundations   | GET     | /foundations    |   | Public |
 | Get foundation   | GET     | /foundations/:foundationId    |   | Public |
-| Post foundation   | POST     | /foundations/:foundationId    |   | Private |
-| Edit foundation   | PUT     | /foundations/:foundationId    |   | Private |
+| Post foundation   | POST     | /foundations/:foundationId    |  { name, acronym, description, logo } | Private |
+| Edit foundation   | PUT     | /foundations/:foundationId    |  { name, acronym, description, logo } | Private |
 | Delete foundation   | DELETE     | /foundations/:foundationId    |   | Private |
 | Get projects   | GET     | /projects    |   | Public |
 | Get project   | GET     | /projects/:projectId    |   | Public |
-| Post project   | POST     | /projects    |   | Private |
-| Edit project   | PUT     | /projects/:projectId    |   | Private |
+| Post project   | POST     | /projects    | { foundation, animal }  | Private |
+| Edit project   | PUT     | /projects/:projectId    |  { foundation, animal } | Private |
 | Delete project   | DELETE     | /projects/:projectId    |   | Private |
 | Get donations   | GET     | /donations    |   | Public |
 | Get donation   | GET     | /donations/:donationId    |   | Public |
-| Post donation   | POST     | /donations/:projectId    |   | Public |
+| Post donation   | POST     | /donations/:projectId    | { project, amount }  | Public |
 
 ---
 
