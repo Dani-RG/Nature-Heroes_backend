@@ -4,14 +4,16 @@ const createError = require('http-errors');
 const express = require('express');
 const logger = require('morgan');
 const cors = require('cors');
+const stripe = require('stripe');
 
 // Routers require
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
 const animalsRouter = require('./routes/animals');
-const foundationsRouter = require('./routes/foundations.js');
+const foundationsRouter = require('./routes/foundations');
 const projectsRouter = require('./routes/projects');
 const usersRouter = require('./routes/users');
+const creditsRouter = require('./routes/credits');
 
 const app = express();
 
@@ -32,6 +34,7 @@ app.use('/animals', animalsRouter);
 app.use('/foundations', foundationsRouter);
 app.use('/projects', projectsRouter);
 app.use('/users', usersRouter);
+app.use('/credits', creditsRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
