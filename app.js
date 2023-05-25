@@ -4,7 +4,6 @@ const createError = require('http-errors');
 const express = require('express');
 const logger = require('morgan');
 const cors = require('cors');
-const stripe = require('stripe');
 
 // Routers require
 const indexRouter = require('./routes/index');
