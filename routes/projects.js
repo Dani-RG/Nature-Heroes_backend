@@ -1,8 +1,8 @@
-const router = require('express').Router();
-const Project = require('../models/Project');
-const Donation = require('../models/Donation');
-const User = require('../models/User');
-const { isAuthenticated, isAdmin } = require('../middlewares/jwt');
+const router = require("express").Router();
+const Project = require("../models/Project");
+const Donation = require("../models/Donation");
+const User = require("../models/User");
+const { isAuthenticated, isAdmin } = require("../middlewares/jwt");
 const jwt = require("jsonwebtoken");
 
 // PROJECTS
@@ -10,163 +10,199 @@ const jwt = require("jsonwebtoken");
 // @desc    Get all projects
 // @route   GET /projects
 // @access  Public
-router.get('/', async (req, res, next) => {
+router.get("/", async (req, res, next) => {
   try {
-    const projects = await Project.find().populate('foundation');
+    const projects = await Project.find().populate("foundation");
     res.status(200).json(projects);
   } catch (error) {
-    next(error)
+    next(error);
   }
 });
 
 // @desc    Get one project
 // @route   GET /projects/:projectId
 // @access  Public
-router.get('/:projectId', async (req, res, next) => {
+router.get("/:projectId", async (req, res, next) => {
   const { projectId } = req.params;
   try {
-    const project = await Project.findById(projectId).populate('foundation animal');
+    const project = await Project.findById(projectId).populate(
+      "foundation animal"
+    );
     res.status(200).json(project);
   } catch (error) {
-    next(error)
+    next(error);
   }
 });
 
 // @desc    Create one project
 // @route   POST /projects
 // @access  Private - Admin
-router.post('/', isAuthenticated, isAdmin, async (req, res, next) => {
+router.post("/", isAuthenticated, isAdmin, async (req, res, next) => {
   const { foundation, animal } = req.body;
-  if (
-    foundation === "" || !foundation ||
-    animal === "" || !animal
-    ) {
-    res.status(400).json({ message: 'All fields are necessary' });
+  if (foundation === "" || !foundation || animal === "" || !animal) {
+    res.status(400).json({ message: "All fields are necessary" });
     return;
   }
   try {
-    const existingProject = await Project.findOne({ foundation, animal }).populate('foundation animal');
+    const existingProject = await Project.findOne({
+      foundation,
+      animal,
+    }).populate("foundation animal");
     if (existingProject) {
-    res.status(400).send({ message: 'This project already exist' });
+      res.status(400).send({ message: "This project already exist" });
     } else {
       const newProject = await Project.create(req.body);
       res.status(201).json(newProject);
     }
   } catch (error) {
-    next(error)
+    next(error);
   }
 });
 
 // @desc    Edit one project
 // @route   PUT /projects/:projectId
 // @access  Private - Admin
-router.put('/:projectId', isAuthenticated, isAdmin, async (req, res, next) => {
+router.put("/:projectId", isAuthenticated, isAdmin, async (req, res, next) => {
   const { projectId } = req.params;
   const { foundation, animal } = req.body;
   if (foundation === "" || animal === "") {
-    res.status(400).json({ message: 'All fields are necessary' });
+    res.status(400).json({ message: "All fields are necessary" });
     return;
   }
   try {
-    const existingProject = await Project.findOne({ foundation, animal }).populate('foundation animal');
+    const existingProject = await Project.findOne({
+      foundation,
+      animal,
+    }).populate("foundation animal");
     if (existingProject) {
-    res.status(400).send({ message: 'This project already exist' });
+      res.status(400).send({ message: "This project already exist" });
     } else {
-    const response = await Project.findByIdAndUpdate(projectId, req.body, { new: true });
-    res.status(204).json({ message: 'OK' });
+      const response = await Project.findByIdAndUpdate(projectId, req.body, {
+        new: true,
+      });
+      res.status(204).json({ message: "OK" });
     }
   } catch (error) {
-    next(error)
+    next(error);
   }
 });
 
 // @desc    Delete one project
 // @route   DELETE /projects/:projectId
 // @access  Private - Admin
-router.delete('/:projectId', isAuthenticated, isAdmin, async (req, res, next) => {
-  const { projectId } = req.params;
-  try {
-    const deletedProject = await Project.findByIdAndDelete(projectId);
-    res.status(200).json({ message: 'Project deleted' });
-  } catch (error) {
-    next(error)
+router.delete(
+  "/:projectId",
+  isAuthenticated,
+  isAdmin,
+  async (req, res, next) => {
+    const { projectId } = req.params;
+    try {
+      const deletedProject = await Project.findByIdAndDelete(projectId);
+      res.status(200).json({ message: "Project deleted" });
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);
 
 // PROJECTS DONATIONS
 
 // @desc    Get all user donations
 // @route   GET /donations
 // @access  Private
-router.get('/donations', isAuthenticated, async (req, res, next) => {
+router.get("/donations", isAuthenticated, async (req, res, next) => {
   const userId = req.payload._id;
   try {
-    const donations = await Donation.find({user: userId});
+    const donations = await Donation.find({ user: userId });
     if (donations.length === 0) {
-      res.status(404).json({ message: 'You have not made donations yet' });
+      res.status(404).json({ message: "You have not made donations yet" });
       return;
     }
     res.status(200).json(donations);
   } catch (error) {
-    next(error)
+    next(error);
   }
 });
 
 // @desc    Get one donation
 // @route   GET /donations/:donationId
 // @access  Private
-router.get('/donations/:donationId', isAuthenticated, async (req, res, next) => {
-  const { donationId } = req.params;
-  try {
-    const donation = await Donation.findById(donationId);
-    if (!donation) {
-      res.status(404).json({ message: 'Donation not found' });
-      return;
+router.get(
+  "/donations/:donationId",
+  isAuthenticated,
+  async (req, res, next) => {
+    const { donationId } = req.params;
+    try {
+      const donation = await Donation.findById(donationId);
+      if (!donation) {
+        res.status(404).json({ message: "Donation not found" });
+        return;
+      }
+      res.status(200).json(donation);
+    } catch (error) {
+      next(error);
     }
-    res.status(200).json(donation);
-  } catch (error) {
-    next(error)
   }
-});
+);
 
 // @desc    Create one donation
 // @route   POST /donations
 // @access  Private
-router.post('/donations/:projectId', isAuthenticated, async (req, res, next) => {
-  const userId = req.payload._id;
-  const { projectId } = req.params;
-  const { amount } = req.body;
+router.post(
+  "/donations/:projectId",
+  isAuthenticated,
+  async (req, res, next) => {
+    const userId = req.payload._id;
+    const { projectId } = req.params;
+    const { amount } = req.body;
 
-  if (amount <= 0 || !amount) {
-    res.status(400).json({ message: 'Please specify your donation' });
-    return;
-  }
-  try {
-    const newDonation = await Donation.create({user: userId, project: projectId, amount: amount});
-
-    const project = await Project.findByIdAndUpdate(projectId, { $inc: { collected_donations: amount } }, {new:true});
-
-    const user = await User.findByIdAndUpdate(userId, { $inc: { donated_total: amount } }, {new:true});
-
-    if (user) {
-      const payload = {
-        email: user.email,
-        username: user.username,
-        role: user.role,
-        _id: user._id,
-        image: user.image,
-        donated_total: user.donated_total
-      };
-      const authToken = jwt.sign(
-        payload,
-        process.env.TOKEN_SECRET,
-        { algorithm: 'HS256', expiresIn: "30d" }
-      );
-      res.status(201).json({newDonation: newDonation, updatedProject: project, authToken: authToken});
+    if (amount <= 0 || !amount) {
+      res.status(400).json({ message: "Please specify your donation" });
+      return;
     }
-  } catch (error) {
-    next(error)
+    try {
+      const newDonation = await Donation.create({
+        user: userId,
+        project: projectId,
+        amount: amount,
+      });
+
+      const project = await Project.findByIdAndUpdate(
+        projectId,
+        { $inc: { collected_donations: amount } },
+        { new: true }
+      );
+
+      const user = await User.findByIdAndUpdate(
+        userId,
+        { $inc: { donated_total: amount } },
+        { new: true }
+      );
+
+      if (user) {
+        const payload = {
+          email: user.email,
+          username: user.username,
+          role: user.role,
+          _id: user._id,
+          image: user.image,
+          donated_total: user.donated_total,
+          credits_wallet: user.credits_wallet,
+        };
+        const authToken = jwt.sign(payload, process.env.TOKEN_SECRET, {
+          algorithm: "HS256",
+          expiresIn: "30d",
+        });
+        res.status(201).json({
+          newDonation: newDonation,
+          updatedProject: project,
+          authToken: authToken,
+        });
+      }
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);
 
 module.exports = router;
